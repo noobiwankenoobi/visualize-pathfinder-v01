@@ -1,0 +1,72 @@
+:root {
+    font-size: 16px;
+    /* font-family: 'Roboto', sans-serif; */
+    /* font-family: 'Source Code Pro', monospace; */
+    /* font-family: 'Baloo 2', cursive; */
+    /* font-family: 'Hind Madurai', sans-serif; */
+    font-family: 'Raleway', sans-serif;
+
+    margin: 0;
+    padding: 0;
+    --text-primary: ;
+    --text-secondary: ;
+    --bg-primary: #FF8C42;
+    --bg-secondary: #FF3C38;
+    --transition-speed: 500ms;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* Nav Stuff */
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    background-color: aliceblue;
+}
+
+.nav-item {
+    margin: 1rem;
+}
+
+.title {
+    font-size: 1.5rem;
+}
+
+.btn-main-outline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    font-size: 1rem;
+    padding: 1rem;
+    background-color: transparent;
+    border: 1px solid var(--bg-primary);
+    border-radius: 5px;
+}
+
+.btn-main-outline:hover {
+    background-color: var(--bg-primary);
+    color: white;
+    cursor: pointer;
+}
+
+/* Node Styling Starts */
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.node {
+    height: 2rem;
+    width: 2rem;
+    border: 1px solid grey;
+}
