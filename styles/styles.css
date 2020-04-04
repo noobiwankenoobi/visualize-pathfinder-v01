@@ -29,6 +29,8 @@
     width: 100%;
     position: fixed;
     background-color: aliceblue;
+    height: 5rem;
+    top: 0;
 }
 
 .nav-item {
@@ -63,10 +65,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5rem;
+    height: auto;
+    width: 100%;
 }
 
 .node {
     height: 2rem;
     width: 2rem;
     border: 1px solid grey;
+}
+
+#node-grid {
+    border: 1px solid black;
+    width: 100%;
+}
+
+tr {
+    height: 1rem;
 }
