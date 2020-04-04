@@ -57,15 +57,17 @@ function renderInitialGrid () {
     for (let i = 0; i < grid.length; i++) {
         currentRow = grid[i];
         table = document.getElementById('node-grid');
-        row = document.createElement('tr');
-        table.append(document.createElement('tr'))
+        row = table.insertRow(i);
 
         for (let j = 0; j < currentRow.length; j++) {
-            currentNode = currentRow[j];
-            console.log("currentRow is=", currentRow)
-            console.log("currentNode is=", currentNode);
-            // tableData = ;
-            row.append(document.createElement('td'))
+
+            row.insertCell(j)
+            
+            // LOGS
+            currentCell = currentRow[j]
+            console.log("currentRow[j] =", currentCell)
+            
+            
             
         }
     }
