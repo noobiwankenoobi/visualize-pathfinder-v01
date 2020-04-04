@@ -6,6 +6,8 @@ const gridObject = {
     selectedAlgorithm: "dykstra",
     startingGridHeight: 25,
     startingGridWidth: 50,
+    nodeArray: [],
+    visitedNodes: [],
 }
 
 // STARTING AND FINISHING NODES, HARDCODED FOR NOW
@@ -35,6 +37,7 @@ function createInitialGrid(row, col) {
     return grid; 
 };
 
+// RETURNS A NODE OBJECT
 const createNode = (col, row) => {
     return {
       col,
@@ -49,36 +52,32 @@ const createNode = (col, row) => {
     };
   };
 
-  // use insertRow() !!!!
+// RENDER THE CREATED INITIAL GRID
 function renderInitialGrid () {
+
     grid = createInitialGrid();
-    // console.log("grid.length is=", grid.length);
-    // console.log("grid inside renderGrid is=", grid)
+
     for (let i = 0; i < grid.length; i++) {
         currentRow = grid[i];
         table = document.getElementById('node-grid');
         row = table.insertRow(i);
 
         for (let j = 0; j < currentRow.length; j++) {
+            let currentNode = currentRow[j]
+            let rowId = currentNode.row;
+            let colId = currentNode.col;
+            
+            // INSERT CELL AND GIVE IDs
+            row.insertCell(j).setAttribute('id', `"node-${rowId}-${colId}"`);
 
-            row.insertCell(j)
-            
             // LOGS
-            currentCell = currentRow[j]
-            console.log("currentRow[j] =", currentCell)
-            
-            
-            
+            console.log("rowID= ", rowId)
+            console.log("currentRow[j] =", currentNode) 
         }
     }
-
 }
 
 
-
-
-//         tableRow = document.createElement('tr');
-//         table.append(currentRow)
 
 ////////////////////
 // RUN ALGORITHM //
@@ -96,6 +95,11 @@ function runDykstraAlgorithm() {
     console.log("Dykstra's Algorithm is Running!")
 
 }
+
+function keepTrackOfVisitedNodes() {
+    console.log("Keep track of visited nodes")
+}
+
 
 /////////////////////////////
 // BUTTON EVENT LISTENERS //
