@@ -24,8 +24,8 @@ function createInitialGrid(row, col) {
     const grid = [];
     const maxRows = gridObject.startingGridHeight;
     const maxCols = gridObject.startingGridWidth;
-    console.log("rows=", maxRows)
-    console.log("cols=", maxCols)
+    console.log("maxRows=", maxRows)
+    console.log("maxCols=", maxCols)
     for (let row = 0; row < maxRows; row++) {
         const currentRow = [];
         for (let col = 0; col < maxCols; col++) {
@@ -55,7 +55,7 @@ const createNode = (col, row) => {
 // RENDER THE CREATED INITIAL GRID
 function renderInitialGrid () {
 
-    grid = createInitialGrid();
+    let grid = createInitialGrid();
 
     for (let i = 0; i < grid.length; i++) {
         currentRow = grid[i];
@@ -69,14 +69,26 @@ function renderInitialGrid () {
             
             // INSERT CELL AND GIVE IDs
             row.insertCell(j).setAttribute('id', `"node-${rowId}-${colId}"`);
-
+           
             // LOGS
-            console.log("rowID= ", rowId)
-            console.log("currentRow[j] =", currentNode) 
+            // console.log("rowID= ", rowId);
+            // console.log("currentRow[j] =", currentNode); 
         }
     }
+    // return assignClassToNode()
 }
 
+function assignClassToNode() {
+    console.log("GIVE CLASS NODE IS RUNNING");
+    
+}
+
+function setStartingdNodeClass() {
+    const startingNode = document.getElementById(`"node-${START_NODE_ROW}-${START_NODE_COL}"`).className = 'start-node';
+    console.log(startingNode)
+    
+    
+}
 
 
 ////////////////////
@@ -115,6 +127,7 @@ const addHandlers = () => {
 /////////////////////////////////
 $(() => {
     addHandlers();
-    renderInitialGrid()
+    renderInitialGrid();
+    setStartingdNodeClass();
     // createInitialGrid();
   })

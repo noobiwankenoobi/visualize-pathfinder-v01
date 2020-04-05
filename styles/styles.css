@@ -46,7 +46,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 3rem;
+    /* height: 3rem; */
     font-size: 1rem;
     padding: 1rem;
     background-color: transparent;
@@ -71,12 +71,6 @@
     width: 100%;
 }
 
-.node {
-    height: 2rem;
-    width: 2rem;
-    border: 1px solid grey;
-}
-
 #node-grid {
     border: 1px solid black;
     width: auto;
@@ -86,4 +80,8 @@ td {
     border: 1px solid black;
     height: 1.5rem;
     width: 1.5rem;
+}
+
+.start-node {
+    background-color: green;
 }
