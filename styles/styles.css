@@ -42,11 +42,11 @@
     font-size: 1.5rem;
 }
 
+/* Buttons */
 .btn-main-outline {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 3rem; */
     font-size: 1rem;
     padding: 1rem;
     background-color: transparent;
@@ -84,4 +84,8 @@ td {
 
 .start-node {
     background-color: green;
+}
+
+.finish-node {
+    background-color: red;
 }

@@ -11,10 +11,10 @@ const gridObject = {
 }
 
 // STARTING AND FINISHING NODES, HARDCODED FOR NOW
-const START_NODE_ROW = 10;
-const START_NODE_COL = 15;
-const FINISH_NODE_ROW = 10;
-const FINISH_NODE_COL = 35;
+const START_NODE_ROW = 11;
+const START_NODE_COL = 11;
+const FINISH_NODE_ROW = 11;
+const FINISH_NODE_COL = 38;
 
 
 //////////////////////////
@@ -24,8 +24,7 @@ function createInitialGrid(row, col) {
     const grid = [];
     const maxRows = gridObject.startingGridHeight;
     const maxCols = gridObject.startingGridWidth;
-    console.log("maxRows=", maxRows)
-    console.log("maxCols=", maxCols)
+    
     for (let row = 0; row < maxRows; row++) {
         const currentRow = [];
         for (let col = 0; col < maxCols; col++) {
@@ -33,7 +32,7 @@ function createInitialGrid(row, col) {
         }
         grid.push(currentRow);
     }
-    // console.log("GRID[0] IS", grid[0])
+    // grid is an array of arrays, each row being an array
     return grid; 
 };
 
@@ -83,9 +82,12 @@ function assignClassToNode() {
     
 }
 
-function setStartingdNodeClass() {
-    const startingNode = document.getElementById(`"node-${START_NODE_ROW}-${START_NODE_COL}"`).className = 'start-node';
-    console.log(startingNode)
+function setInitialNodeClasses() {
+    // Starting Node
+    document.getElementById(`"node-${START_NODE_ROW}-${START_NODE_COL}"`).className = 'start-node';
+    // End Node
+    document.getElementById(`"node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}"`).className = 'finish-node';
+    
     
     
 }
@@ -128,6 +130,6 @@ const addHandlers = () => {
 $(() => {
     addHandlers();
     renderInitialGrid();
-    setStartingdNodeClass();
+    setInitialNodeClasses();
     // createInitialGrid();
   })
