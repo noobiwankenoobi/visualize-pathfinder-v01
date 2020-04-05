@@ -90,10 +90,11 @@ td {
     background-color: red;
 }
 
+.node-shortest-path {
+    background-color: gold;
+}
+
 .node-visited {
     background-color: blue;
 }
 
-.node-shortest-path {
-    background-color: gold;
-}

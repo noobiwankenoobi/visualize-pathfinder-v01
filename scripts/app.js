@@ -15,7 +15,9 @@ const gridObject = {
 const START_NODE_ROW = 11;
 const START_NODE_COL = 11;
 const FINISH_NODE_ROW = 11;
-const FINISH_NODE_COL = 38;
+const FINISH_NODE_COL = 35;
+const ALL_PATHS_INTERVAL = 5;
+const SHORTEST_PATH_INTERVAL = 50;
 
 
 //////////////////////////
@@ -63,9 +65,9 @@ function renderInitialGrid () {
     let grid = createInitialGrid();
 
     for (let i = 0; i < grid.length; i++) {
-        currentRow = grid[i];
-        table = document.getElementById('node-grid');
-        row = table.insertRow(i);
+        let currentRow = grid[i];
+        let table = document.getElementById('node-grid');
+        let row = table.insertRow(i);
 
         for (let j = 0; j < currentRow.length; j++) {
             let currentNode = currentRow[j]
@@ -83,21 +85,13 @@ function renderInitialGrid () {
     // return assignClassToNode()
 }
 
-function assignClassToNode() {
-    console.log("GIVE CLASS NODE IS RUNNING");
-    
-}
 
 function setInitialNodeClasses() {
     // Starting Node
     document.getElementById(`"node-${START_NODE_ROW}-${START_NODE_COL}"`).className = 'start-node';
     // End Node
-    document.getElementById(`"node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}"`).className = 'finish-node';
-    
-    
-    
+    document.getElementById(`"node-${FINISH_NODE_ROW}-${FINISH_NODE_COL}"`).className = 'finish-node'; 
 }
-
 
 ////////////////////
 // RUN ALGORITHM //
@@ -108,7 +102,6 @@ function runCurrentAlgorithm(selectedAlgorithm) {
     if (selectedAlgorithm = "dykstra"){
         initiateDykstraVisualization()
     }
-    
 }
 
 // Dykstra //
@@ -121,13 +114,13 @@ function runDijkstraAlgorithm(grid, startNode, finishNode) {
     // visitedNodesInOrder starts out as an empty array
     const visitedNodesInOrder = [];
     // Passes getAllNodes the grid that it was passed, gets back the array of all unvisited nodes, assigns it to unvisitedNodes
-    const unvisitedNodes = getAllNodes(grid);
+    const allNodes = getAllNodes(grid);
     // Makes sure the function stops at the end of the unvisitedNodes array
-    while (!!unvisitedNodes.length) {
+    while (!!allNodes.length) {
       // Passes all the unvisitedNodes to the sort-by-distance function
-      sortNodesByDistance(unvisitedNodes);
+      sortNodesByDistance(allNodes);
       // Takes the first node off the distance-sorted array and assigns it to closestNode
-      const closestNode = unvisitedNodes.shift();
+      const closestNode = allNodes.shift();
       // If the closestNode is a "wall", it gets skipped and the process continues
       if (closestNode.isWall) continue;
       // If the closestNode's distance is Infinity, the process is "trapped" and stops
@@ -151,16 +144,13 @@ function runDijkstraAlgorithm(grid, startNode, finishNode) {
 
 
 
-function keepTrackOfVisitedNodes() {
-    console.log("Keep track of visited nodes")
-}
-
 function updateUnvisitedNeighborNodes(node, grid) {
     const unvisitedNeighborNodes = getUnvisitedNeighborNodes(node, grid);
     for (const neighborNode of unvisitedNeighborNodes) {
       // Gives the neighborNodes a distance of the current node's distance +1
       neighborNode.distance = node.distance + 1;
       // Gives the node it was passed a "previousNode" of the current node
+      // KEY THING
       neighborNode.previousNode = node;
     }
   }
@@ -219,10 +209,14 @@ function getNodesInShortestPathOrder(finishNode) {
 function animateShortestPath(nodesInShortestPathOrder) {
     console.log("nodesInShortestPathOrder =", nodesInShortestPathOrder)
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+        
         shortestPathNode = nodesInShortestPathOrder[i];
+        console.log(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`)
         setTimeout(() => {
-            document.getElementById(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`).className = "node-shortest-path";
-        }, 50 * i)        
+            // document.getElementById(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`).classList.remove("node-visited");
+            document.getElementById(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`).className += " node-shortest-path";
+
+        }, SHORTEST_PATH_INTERVAL * i)     
     }
 }
 
@@ -236,29 +230,32 @@ function animateDykstraAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder) 
         const visitedNode = visitedNodesInOrder[i];
         document.getElementById(`"node-${visitedNode.row}-${visitedNode.col}"`).className = "node-visited";
         
-        }, 10 * i);
-        
+        }, ALL_PATHS_INTERVAL * i);
     }   
-    animateShortestPath(nodesInShortestPathOrder)
-     
+    // setTimeout(animateShortestPath, ALL_PATHS_INTERVAL * getAllNodes(gridObject.grid).filter(x => x.isVisited))
+    setTimeout(() => {animateShortestPath(nodesInShortestPathOrder)}, 5000)
 }
+
+
 
 ////////////////////////////////////
 // INITIATE DYSTRA VISUALIZATION //
 ////////////////////////////////////////////////////////////
 function initiateDykstraVisualization() {
     const grid = gridObject.grid;
-    // console.log("grid inside initiateDykstraVisualization =", grid)
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     // Run the algo
     const visitedNodesInOrder = runDijkstraAlgorithm(grid, startNode, finishNode);
     // Passes the finishNode to the getNodesInShortestPathOrder function
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    animateDykstraAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);animateShortestPath(nodesInShortestPathOrder);
+    animateDykstraAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
+    
+    // animateShortestPath(nodesInShortestPathOrder);
+
     // LOGS IMPORTANT
     // console.log("visitedNodesInOrder inside initiateDykstraVisualization =", visitedNodesInOrder)
-    // console.log("nodesInShortestPathOrder inside initiateDykstraVisualization =", visitedNodesInOrder)
+    console.log("nodesInShortestPathOrder inside initiateDykstraVisualization =", visitedNodesInOrder)
 
 }
 
