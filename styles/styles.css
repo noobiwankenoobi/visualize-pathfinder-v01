@@ -52,6 +52,7 @@
     background-color: transparent;
     border: 1px solid var(--bg-primary);
     border-radius: 5px;
+    width: 6rem;
 }
 
 .btn-main-outline:hover {
@@ -91,10 +92,13 @@ td {
 }
 
 .node-shortest-path {
-    background-color: gold;
+    background-color: gold !important;
 }
 
 .node-visited {
     background-color: blue;
 }
 
+#shortest-path {
+    background-color: gold;
+}

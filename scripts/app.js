@@ -17,7 +17,7 @@ const START_NODE_COL = 11;
 const FINISH_NODE_ROW = 11;
 const FINISH_NODE_COL = 35;
 const ALL_PATHS_INTERVAL = 5;
-const SHORTEST_PATH_INTERVAL = 50;
+const SHORTEST_PATH_INTERVAL = 5;
 
 
 //////////////////////////
@@ -110,6 +110,7 @@ function runCurrentAlgorithm(selectedAlgorithm) {
 
 function runDijkstraAlgorithm(grid, startNode, finishNode) {
     console.log("Dykstra's Algorithm is Running!")
+    
     startNode.distance = 0;
     // visitedNodesInOrder starts out as an empty array
     const visitedNodesInOrder = [];
@@ -206,19 +207,14 @@ function getNodesInShortestPathOrder(finishNode) {
 ////////////////////////////
 // ANIMATE SHORTEST PATH //
 ////////////////////////////////////////
-function animateShortestPath(nodesInShortestPathOrder) {
-    console.log("nodesInShortestPathOrder =", nodesInShortestPathOrder)
-    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-        
-        shortestPathNode = nodesInShortestPathOrder[i];
-        console.log(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`)
-        setTimeout(() => {
-            // document.getElementById(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`).classList.remove("node-visited");
-            document.getElementById(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`).className += " node-shortest-path";
 
-        }, SHORTEST_PATH_INTERVAL * i)     
-    }
-}
+// const animateDykstraPromise = (visitedNodesInOrder, nodesInShortestPathOrder) =>
+//   (new Promise(animateDykstraAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder)))
+//   .then(animateShortestPath(nodesInShortestPathOrder))
+//   .catch();
+
+
+
 
 //////////////////////
 // ANIMATE DYKSTRA //
@@ -229,13 +225,27 @@ function animateDykstraAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder) 
         setTimeout(() => {
         const visitedNode = visitedNodesInOrder[i];
         document.getElementById(`"node-${visitedNode.row}-${visitedNode.col}"`).className = "node-visited";
-        
+        setTimeout(() => {animateShortestPath(nodesInShortestPathOrder)}, 5000)
+        // animateShortestPath(nodesInShortestPathOrder)
         }, ALL_PATHS_INTERVAL * i);
     }   
+    
     // setTimeout(animateShortestPath, ALL_PATHS_INTERVAL * getAllNodes(gridObject.grid).filter(x => x.isVisited))
-    setTimeout(() => {animateShortestPath(nodesInShortestPathOrder)}, 5000)
+    
 }
 
+function animateShortestPath(nodesInShortestPathOrder) {
+    // console.log("nodesInShortestPathOrder =", nodesInShortestPathOrder)
+    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+        shortestPathNode = nodesInShortestPathOrder[i];
+        // setTimeout(() => {
+            // document.getElementById(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`).classList.remove("node-visited");
+            document.getElementById(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`).setAttribute("class" , "node-shortest-path");
+            // document.getElementById(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`).style.backgroundColor= "gold";
+
+        // }, SHORTEST_PATH_INTERVAL * i)     
+    }
+}
 
 
 ////////////////////////////////////
@@ -250,16 +260,18 @@ function initiateDykstraVisualization() {
     // Passes the finishNode to the getNodesInShortestPathOrder function
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     animateDykstraAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
+    // animateDykstraPromise(visitedNodesInOrder, nodesInShortestPathOrder);
     
     // animateShortestPath(nodesInShortestPathOrder);
 
     // LOGS IMPORTANT
     // console.log("visitedNodesInOrder inside initiateDykstraVisualization =", visitedNodesInOrder)
-    console.log("nodesInShortestPathOrder inside initiateDykstraVisualization =", visitedNodesInOrder)
-
+    // console.log("nodesInShortestPathOrder inside initiateDykstraVisualization =", visitedNodesInOrder)
 }
 
-
+function refreshGrid() {
+    console.log("Refresh Grid running");
+}
 
 
 /////////////////////////////
@@ -268,6 +280,7 @@ function initiateDykstraVisualization() {
 const addHandlers = () => {
     // Nav Links
     $('#activate-button').on('click', runCurrentAlgorithm);
+    $('#refresh-button').on('click', refreshGrid);
   }
 
 ///////////////////
@@ -277,5 +290,4 @@ $(() => {
     addHandlers();
     renderInitialGrid();
     setInitialNodeClasses();
-
   })
