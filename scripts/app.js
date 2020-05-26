@@ -214,8 +214,6 @@ function getNodesInShortestPathOrder(finishNode) {
 //   .catch();
 
 
-
-
 //////////////////////
 // ANIMATE DYKSTRA //
 /////////////////////////////////////////
@@ -225,11 +223,11 @@ function animateDykstraAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder) 
         setTimeout(() => {
         const visitedNode = visitedNodesInOrder[i];
         document.getElementById(`"node-${visitedNode.row}-${visitedNode.col}"`).className = "node-visited";
+        // setTimeout(() => {animateShortestPath(nodesInShortestPathOrder)}, 5000)
         setTimeout(() => {animateShortestPath(nodesInShortestPathOrder)}, 5000)
         // animateShortestPath(nodesInShortestPathOrder)
         }, ALL_PATHS_INTERVAL * i);
     }   
-    
     // setTimeout(animateShortestPath, ALL_PATHS_INTERVAL * getAllNodes(gridObject.grid).filter(x => x.isVisited))
     
 }
@@ -242,7 +240,6 @@ function animateShortestPath(nodesInShortestPathOrder) {
             // document.getElementById(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`).classList.remove("node-visited");
             document.getElementById(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`).setAttribute("class" , "node-shortest-path");
             // document.getElementById(`"node-${shortestPathNode.row}-${shortestPathNode.col}"`).style.backgroundColor= "gold";
-
         // }, SHORTEST_PATH_INTERVAL * i)     
     }
 }
@@ -263,12 +260,10 @@ function initiateDykstraVisualization() {
     // animateDykstraPromise(visitedNodesInOrder, nodesInShortestPathOrder);
     
     // animateShortestPath(nodesInShortestPathOrder);
-
-    // LOGS IMPORTANT
-    // console.log("visitedNodesInOrder inside initiateDykstraVisualization =", visitedNodesInOrder)
-    // console.log("nodesInShortestPathOrder inside initiateDykstraVisualization =", visitedNodesInOrder)
 }
 
+///////////////////
+// REFRESH GRID //////////////////
 function refreshGrid() {
     console.log("Refresh Grid running");
 }
